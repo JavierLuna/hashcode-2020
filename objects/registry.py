@@ -18,6 +18,8 @@ class Registry:
     def daily_scan(self, libraries: List[Library]):
         for library in libraries:
             scanned_books = library.scan(self)
+            if not scanned_books:
+                continue
             self.total_books.update(scanned_books)
             self.internal_registry[library] += list(scanned_books)
 
@@ -28,7 +30,7 @@ class Registry:
             scanned_books = self.internal_registry[library]
 
             if scanned_books:
-                output += f"\n{str(library.id)} {len(scanned_books)}"
-                output += f"\n{' '.join([str(book.id) for book in scanned_books])}"
+                output += f"\n{str(library.id)} {len(scanned_books)}\n{' '.join([str(book.id) for book in scanned_books])}"
+
 
         return output
