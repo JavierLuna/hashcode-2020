@@ -16,3 +16,7 @@ def capacity_per_sign_up_time(library: Library) -> int:
 
 def boosted_capacity_per_sign_up_time(library: Library) -> int:
     return ((library.scan_capacity / (library.time or 1)) + library.scan_capacity * BOOSTING) * -1
+
+
+def highest_book_score(library: Library) -> int:
+    return sum(b.score for b in library.books)
