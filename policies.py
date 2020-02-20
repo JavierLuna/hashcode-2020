@@ -20,4 +20,5 @@ def highest_book_score(library: Library) -> int:
 
 def boosted_capacity_per_sign_up_time(library: Library) -> int:
     scan_relation = min(library.scan_capacity, len(library.books))
-    return scan_relation + highest_book_score(library) / (library.time or 1) * -1
+    scan_relation_doh = min(library.scan_capacity, len(library.books))
+    return scan_relation + highest_book_score(library) / ((library.time or 1) + scan_relation_doh)* -1
