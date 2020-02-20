@@ -1,4 +1,4 @@
-from config import BOOSTING
+from config import BOOSTING_CAPACITY, BOOSTING_SCORE
 from objects.library import Library
 
 
@@ -19,4 +19,4 @@ def highest_book_score(library: Library) -> int:
 
 
 def boosted_capacity_per_sign_up_time(library: Library) -> int:
-    return library.scan_capacity + highest_book_score(library) / (library.time or 1) * -1
+    return library.scan_capacity * BOOSTING_CAPACITY + highest_book_score(library) * BOOSTING_SCORE / (library.time or 1) * -1
