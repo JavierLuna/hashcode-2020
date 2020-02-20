@@ -30,6 +30,7 @@ def do_solution(input: INPUT_TYPE) -> OUTPUT_TYPE:
 
         # Remove from pending the empty libraries
         pending_libraries = [library for library in pending_libraries if library.is_has_done_scan()]
+        pending_libraries = sorted(pending_libraries, key=lambda library: sum(b.score for b in library.books))
 
         # Scan for the day
         registry.daily_scan(pending_libraries)
