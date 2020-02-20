@@ -28,8 +28,7 @@ def do_solution(input: INPUT_TYPE) -> OUTPUT_TYPE:
             pending_libraries.append(signed_order[-1])
 
         # Remove from pending the empty libraries
-        pending_libraries = sorted([library for library in pending_libraries if library.is_has_done_scan()],
-                                   key=highest_scan_capacity)
+        pending_libraries = [library for library in pending_libraries if library.is_has_done_scan()]
 
         # Scan for the day
         registry.daily_scan(pending_libraries)
