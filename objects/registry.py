@@ -12,7 +12,12 @@ class Registry:
         pass
 
     def get_registered_books(self) -> Set[Book]:
-        return set(self.internal_registry.values())
+        registered_books = set()
+
+        for books in self.internal_registry.values():
+            registered_books.union(books)
+
+        return registered_books
 
     def daily_scan(self, libraries: List[Library]):
         for library in libraries:
