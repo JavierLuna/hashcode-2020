@@ -24,10 +24,10 @@ class Registry:
             self.internal_registry[library] += list(library.scan(self))
 
     def serialize(self, sign_up_sorted_libraries: List[Library]) -> str:
-        output = str(len(self.internal_registry.values()))
+        output = str(len(sign_up_sorted_libraries))
 
         for library in sign_up_sorted_libraries:
             scanned_books = self.internal_registry[library]
-            output += f"{str(library.id)} {len(scanned_books)}\n{' '.join([str(book.id) for book in scanned_books])}"
+            output += f"\n{str(library.id)} {len(scanned_books)}\n{' '.join([str(book.id) for book in scanned_books])}"
 
         return output
