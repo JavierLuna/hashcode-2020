@@ -1,12 +1,9 @@
 from typing import Set
 
-from config import REGISTRY_TYPE
-from objects.book import Book
-
 
 class Library:
 
-    def __init__(self, id: int, books: Set[Book], time: int, scan_capacity: int):
+    def __init__(self, id: int, books: Set['Book'], time: int, scan_capacity: int):
         self.id = id
         self.books = books
         self.time = time
@@ -17,8 +14,8 @@ class Library:
             yield False
         yield True
 
-    def scan(self, registry: REGISTRY_TYPE) -> Set[Book]:
-        self.books = self.books.substraction(registry.get_registered_books())
+    def scan(self, registry: 'Registry') -> Set['Book']:
+        self.books = self.books - registry.get_registered_books()
         capacity = min(self.scan_capacity, len(self.books))
         return {self.books.pop() for _ in range(capacity)}
 

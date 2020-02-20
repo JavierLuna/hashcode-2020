@@ -21,7 +21,7 @@ class Registry:
 
     def daily_scan(self, libraries: List[Library]):
         for library in libraries:
-            self.internal_registry += list(library.scan(self))
+            self.internal_registry[library] += list(library.scan(self))
 
     def serialize(self, sign_up_sorted_libraries: List[Library]) -> str:
         output = str(len(self.internal_registry.values()))
