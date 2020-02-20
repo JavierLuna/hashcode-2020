@@ -1,12 +1,37 @@
-from typing import List
+from typing import List, Set, Iterable
 
 from config import INPUT_TYPE, OUTPUT_TYPE
 from objects.book import Book
 from objects.library import Library
+from objects.registry import Registry
+from policies import highest_scan_capacity
+
+
+def sort_signup_libraries(libraries: Iterable[Library]) -> List[Library]:
+    return sorted(libraries, key=highest_scan_capacity)
 
 
 def do_solution(input: INPUT_TYPE) -> OUTPUT_TYPE:
-    return ""
+    scanning_days, libraries = input
+    not_signed_yet = sort_signup_libraries(libraries)
+    signed_order = []
+    pending_libraries = []
+    registry = Registry()
+
+    for _ in range(scanning_days):
+
+        # Signup process
+        if not_signed_yet and not_signed_yet[0].sign_up():
+            signed_order.append(not_signed_yet.pop(0))
+            pending_libraries.append(signed_order[-1])
+
+        # Remove from pending the empty libraries
+        pending_libraries = sorted([library for library in pending_libraries if library.is_has_done_scan()],
+                                   key=highest_scan_capacity)
+
+        # Scan for the day
+        registry.daily_scan(pending_libraries)
+    return signed_order, registry
 
 
 def get_int_list(line: str) -> List[int]:
@@ -28,7 +53,7 @@ def parse_input(input_content: str) -> INPUT_TYPE:
                                  signup_time,
                                  scan_capacity))
 
-    return libraries
+    return n_days, libraries
 
 
 def serialize_output(output: OUTPUT_TYPE) -> str:
