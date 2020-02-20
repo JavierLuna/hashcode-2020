@@ -6,7 +6,7 @@ from objects.book import Book
 
 class Library:
 
-    def __init__(self, id: int, books: Set[Book], time: int, scan_capacity: int, registry: REGISTRY_TYPE):
+    def __init__(self, id: int, books: Set[Book], time: int, scan_capacity: int):
         self.id = id
         self.books = books
         self.time = time
