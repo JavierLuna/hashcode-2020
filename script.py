@@ -9,7 +9,7 @@ from policies import highest_scan_capacity, capacity_per_sign_up_time, boosted_c
 
 
 def sort_signup_libraries(libraries: Iterable[Library]) -> List[Library]:
-    return sorted(libraries, key=highest_book_score)
+    return sorted(libraries, key=boosted_capacity_per_sign_up_time)
 
 
 def do_solution(input: INPUT_TYPE) -> OUTPUT_TYPE:
