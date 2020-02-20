@@ -23,7 +23,11 @@ class Registry:
         for library in libraries:
             self.internal_registry += list(library.scan(self))
 
-    def serialize(self) -> List[str]:
+    def serialize(self) -> str:
+        output = str(len(self.internal_registry.values()))
+
         for library in self.internal_registry:
             scanned_books = self.internal_registry[library]
-            f"{library.id} {len(scanned_books)}\n{[scanned_books.id for book]}]"
+            output += f"{library.id} {len(scanned_books)}\n{' '.join([str(book.id) for book in scanned_books])}]"
+
+        return output
