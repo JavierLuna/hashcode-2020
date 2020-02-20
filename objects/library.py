@@ -22,6 +22,9 @@ class Library:
         capacity = min(self.scan_capacity, len(self.books))
         return {self.books.pop() for _ in range(capacity)}
 
+    def is_has_done_scan(self) -> bool:
+        return bool(self.books)
+
     def __eq__(self, other):
         return isinstance(other, Library) and other.id == self.id
 

@@ -22,3 +22,8 @@ class Registry:
     def daily_scan(self, libraries: List[Library]):
         for library in libraries:
             self.internal_registry += list(library.scan(self))
+
+    def serialize(self) -> List[str]:
+        for library in self.internal_registry:
+            scanned_books = self.internal_registry[library]
+            f"{library.id} {len(scanned_books)}\n{[scanned_books.id for book]}]"
