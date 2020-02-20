@@ -18,12 +18,12 @@ class Registry:
     def daily_scan(self, libraries: List[Library]):
         for library in libraries:
             scanned_books = library.scan(self)
-            if not scanned_books:
-                continue
+
             self.total_books.update(scanned_books)
             self.internal_registry[library] += list(scanned_books)
 
     def serialize(self, sign_up_sorted_libraries: List[Library]) -> str:
+        sign_up_sorted_libraries = [l for l in sign_up_sorted_libraries if self.internal_registry[l]]
         output = str(len(sign_up_sorted_libraries))
 
         for library in sign_up_sorted_libraries:
