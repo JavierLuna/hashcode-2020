@@ -1,3 +1,4 @@
+from config import BOOSTING
 from objects.library import Library
 
 
@@ -11,3 +12,7 @@ def lowest_sign_up_time(library: Library) -> int:
 
 def capacity_per_sign_up_time(library: Library) -> int:
     return library.scan_capacity / (library.time or 1) * -1
+
+
+def boosted_capacity_per_sign_up_time(library: Library) -> int:
+    return ((library.scan_capacity / (library.time or 1)) + library.scan_capacity * BOOSTING) * -1

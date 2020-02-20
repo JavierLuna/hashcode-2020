@@ -12,6 +12,7 @@ INPUT = os.path.join(base_dir, 'input')
 PRINT_EVERY_N_DAY = 100
 
 N_THREADS = None
+BOOSTING = 0.2
 INPUT_TYPE = Tuple[int, List[Library]]  # Days, libraries
 OUTPUT_TYPE = Tuple[List[Library], Registry]  # Libraries by signup, Registry
 

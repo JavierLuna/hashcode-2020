@@ -4,11 +4,11 @@ from config import INPUT_TYPE, OUTPUT_TYPE, PRINT_EVERY_N_DAY
 from objects.book import Book
 from objects.library import Library
 from objects.registry import Registry
-from policies import highest_scan_capacity, capacity_per_sign_up_time
+from policies import highest_scan_capacity, capacity_per_sign_up_time, boosted_capacity_per_sign_up_time
 
 
 def sort_signup_libraries(libraries: Iterable[Library]) -> List[Library]:
-    return sorted(libraries, key=capacity_per_sign_up_time)
+    return sorted(libraries, key=boosted_capacity_per_sign_up_time)
 
 
 def do_solution(input: INPUT_TYPE) -> OUTPUT_TYPE:
