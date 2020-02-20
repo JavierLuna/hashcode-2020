@@ -6,16 +6,24 @@ from objects.book import Book
 
 class Library:
 
-    def __init__(self, id: int, books: Set[Book], time: int, max_books_scanned: int, registry: REGISTRY_TYPE):
+    def __init__(self, id: int, books: Set[Book], time: int, scan_capacity: int, registry: REGISTRY_TYPE):
         self.id = id
         self.books = books
         self.time = time
-        self.max_books_scanned = max_books_scanned
+        self.scan_capacity = scan_capacity
 
     def sign_up(self) -> bool:
         for _ in range(self.time):
             yield False
         yield True
 
-    def scan(self) -> bool:
-        return False
+    def scan(self, registry: REGISTRY_TYPE) -> Set[Book]:
+        self.books = self.books.substraction(registry.get_registered_books())
+        capacity = min(self.scan_capacity, len(self.books))
+        return {self.books.pop() for _ in range(capacity)}
+
+    def __eq__(self, other):
+        return isinstance(other, Library) and other.id == self.id
+
+    def __hash__(self):
+        return hash(self.id)
