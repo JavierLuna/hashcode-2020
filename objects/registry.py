@@ -26,9 +26,9 @@ class Registry:
 
         for library in sign_up_sorted_libraries:
             scanned_books = self.internal_registry[library]
-            output += f"\n{str(library.id)} {len(scanned_books)}"
 
             if scanned_books:
+                output += f"\n{str(library.id)} {len(scanned_books)}"
                 output += f"\n{' '.join([str(book.id) for book in scanned_books])}"
 
         return output
