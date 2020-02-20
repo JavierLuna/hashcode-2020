@@ -57,4 +57,5 @@ def parse_input(input_content: str) -> INPUT_TYPE:
 
 
 def serialize_output(output: OUTPUT_TYPE) -> str:
-    return output
+    signed_up_sorted_libraries, registry = output
+    return registry.serialize(signed_up_sorted_libraries)

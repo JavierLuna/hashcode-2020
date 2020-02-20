@@ -23,31 +23,41 @@ def read_input(file_path: str) -> INPUT_TYPE:
     return content
 
 
+def monothread_solution(input_file_path: str):
+    input_content = read_input(input_file_path)
+    print("Executing solution...")
+    output = do_solution(input_content)
+    store_output(input_file_path, output)
+    print(f"\n\n\t\t!!!!!! SOLUTION FOR {input_file_path} is ready !!!!!!\n\n")
+
+
 def execute_solution(input_queue: Queue):
     while True:
         input_file_path = input_queue.get()
         if input_file_path is None:
             print("Received kill signal, bye!")
             return
-        input_content = read_input(input_file_path)
-        print("Executing solution...")
-        output = do_solution(input_content)
-        store_output(input_file_path, output)
-        print(f"\n\n\t\t!!!!!! SOLUTION FOR {input_file_path} is ready !!!!!!\n\n")
+        monothread_solution(input_file_path)
 
 
 if __name__ == '__main__':
-    work_queue = Queue()
 
-    print(f"Spawning {N_THREADS} processes!")
-    processes = [Process(target=execute_solution, args=(work_queue,)) for _ in range(N_THREADS)]
-    print("Filling work queue...")
-    for input_file in INPUT_FILES:
-        work_queue.put(input_file)
+    if N_THREADS > 1:
+        work_queue = Queue()
 
-    print("Adding kill signal...")
-    [work_queue.put(None) for _ in processes]
-    print("Starting processes...")
-    [p.start() for p in processes]
-    print("Waiting for the processes to finish...")
-    [p.join() for p in processes]
+        print(f"Spawning {N_THREADS} processes!")
+        processes = [Process(target=execute_solution, args=(work_queue,)) for _ in range(N_THREADS)]
+        print("Filling work queue...")
+        for input_file in INPUT_FILES:
+            work_queue.put(input_file)
+
+        print("Adding kill signal...")
+        [work_queue.put(None) for _ in processes]
+        print("Starting processes...")
+        [p.start() for p in processes]
+        print("Waiting for the processes to finish...")
+        [p.join() for p in processes]
+    else:
+        print("One process, doing it in main!")
+        for input_file in INPUT_FILES:
+            monothread_solution(input_file)
