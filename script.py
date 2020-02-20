@@ -1,6 +1,6 @@
 from typing import List, Set, Iterable
 
-from config import INPUT_TYPE, OUTPUT_TYPE
+from config import INPUT_TYPE, OUTPUT_TYPE, PRINT_EVERY_N_DAY
 from objects.book import Book
 from objects.library import Library
 from objects.registry import Registry
@@ -18,7 +18,9 @@ def do_solution(input: INPUT_TYPE) -> OUTPUT_TYPE:
     pending_libraries = []
     registry = Registry()
 
-    for _ in range(scanning_days):
+    for day in range(scanning_days):
+        if not day % PRINT_EVERY_N_DAY:
+            print(f"Day {day}/{scanning_days}! ({100*day/scanning_days:.2f}%)")
 
         # Signup process
         if not_signed_yet and not_signed_yet[0].sign_up():

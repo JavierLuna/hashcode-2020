@@ -9,10 +9,11 @@ base_dir = os.path.dirname(os.path.realpath(__file__))
 SOLUTIONS = os.path.join(base_dir, 'solutions')
 INPUT = os.path.join(base_dir, 'input')
 
-N_THREADS = 1
+PRINT_EVERY_N_DAY = 100
+
+N_THREADS = None
 INPUT_TYPE = Tuple[int, List[Library]]  # Days, libraries
 OUTPUT_TYPE = Tuple[List[Library], Registry]  # Libraries by signup, Registry
-
 
 INPUT_FILES = [
     "a_example.txt",
