@@ -13,16 +13,13 @@ class Registry:
         pass
 
     def get_registered_books(self) -> Set[Book]:
-        registered_books = set()
-
-        for books in self.internal_registry.values():
-            registered_books = registered_books.union(books)
-
-        return registered_books
+        return self.total_books
 
     def daily_scan(self, libraries: List[Library]):
         for library in libraries:
-            self.internal_registry[library] += list(library.scan(self))
+            scanned_books = library.scan(self)
+            self.total_books.update(scanned_books)
+            self.internal_registry[library] += list(scanned_books)
 
     def serialize(self, sign_up_sorted_libraries: List[Library]) -> str:
         output = str(len(sign_up_sorted_libraries))
