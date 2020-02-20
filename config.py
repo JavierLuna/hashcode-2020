@@ -1,6 +1,6 @@
 import os
 import multiprocessing
-from typing import List
+from typing import List, Tuple
 
 from objects.library import Library
 from objects.registry import Registry
@@ -10,8 +10,8 @@ SOLUTIONS = os.path.join(base_dir, 'solutions')
 INPUT = os.path.join(base_dir, 'input')
 
 N_THREADS = None
-INPUT_TYPE = List[Library]
-OUTPUT_TYPE = str
+INPUT_TYPE = Tuple[int, List[Library]]  # Days, libraries
+OUTPUT_TYPE = Tuple[List[Library], Registry]  # Libraries by signup, Registry
 REGISTRY_TYPE = Registry
 
 INPUT_FILES = [
