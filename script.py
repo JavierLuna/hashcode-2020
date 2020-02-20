@@ -31,7 +31,7 @@ def store_output(file_name: str, output_content: OUTPUT_TYPE):
 
 
 def read_solution(file_path: str) -> INPUT_TYPE:
-    with open(os.path.join(SOLUTIONS, input_file_path)) as input_file:
+    with open(os.path.join(SOLUTIONS, file_path)) as input_file:
         content = input_file.read()
     content = parse_input(content)
     return content
